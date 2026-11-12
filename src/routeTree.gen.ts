@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as InfluencersIndexRouteImport } from './routes/influencers.index'
 import { Route as InfluencersSlugRouteImport } from './routes/influencers.$slug'
 
 const IndexRoute = IndexRouteImport.update({
@@ -23,6 +25,16 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InfluencersIndexRoute = InfluencersIndexRouteImport.update({
+  id: '/influencers/',
+  path: '/influencers/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const InfluencersSlugRoute = InfluencersSlugRouteImport.update({
   id: '/influencers/$slug',
   path: '/influencers/$slug',
@@ -32,31 +44,46 @@ const InfluencersSlugRoute = InfluencersSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/influencers/$slug': typeof InfluencersSlugRoute
+  '/influencers/': typeof InfluencersIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/influencers/$slug': typeof InfluencersSlugRoute
+  '/influencers': typeof InfluencersIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/influencers/$slug': typeof InfluencersSlugRoute
+  '/influencers/': typeof InfluencersIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/influencers/$slug'
+  fullPaths:
+    '/' | '/auth' | '/reset-password' | '/influencers/$slug' | '/influencers/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/influencers/$slug'
-  id: '__root__' | '/' | '/auth' | '/influencers/$slug'
+  to: '/' | '/auth' | '/reset-password' | '/influencers/$slug' | '/influencers'
+  id:
+    | '__root__'
+    | '/'
+    | '/auth'
+    | '/reset-password'
+    | '/influencers/$slug'
+    | '/influencers/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   InfluencersSlugRoute: typeof InfluencersSlugRoute
+  InfluencersIndexRoute: typeof InfluencersIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -75,6 +102,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/influencers/': {
+      id: '/influencers/'
+      path: '/influencers'
+      fullPath: '/influencers/'
+      preLoaderRoute: typeof InfluencersIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/influencers/$slug': {
       id: '/influencers/$slug'
       path: '/influencers/$slug'
@@ -88,7 +129,9 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   InfluencersSlugRoute: InfluencersSlugRoute,
+  InfluencersIndexRoute: InfluencersIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

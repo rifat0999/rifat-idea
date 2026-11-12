@@ -1,0 +1,15 @@
+# BrandLinks roadmap
+- [ ] App shell: header (language switch, auth menu), footer, providers
+- [ ] Homepage (hero, search, featured, how it works)
+- [ ] Influencer directory with filters
+- [ ] Influencer profile (bio, socials, audience, packages, reviews)
+- [ ] Auth: sign in/up with role, Google, reset password, onboarding
+- [ ] Dashboards (business, creator) + profile editors + verification request
+- [ ] Campaigns + booking request
+- [ ] Bookings list + detail (accept/decline, payment submit, delivery, review, dispute)
+- [ ] Messaging (realtime)
+- [ ] Creator earnings
+- [ ] Admin dashboard (verification, bookings, payments, payouts, disputes, users, commission)
+- [ ] About, Help, Terms, Privacy
+- [ ] Commission test
+- [ ] Open: grant admin role once the owner signs up (needs the owner's account)
