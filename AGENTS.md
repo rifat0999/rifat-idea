@@ -28,3 +28,6 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+- Add newly installed client libraries to `optimizeDeps.include` in `vite.config.ts`: late dependency discovery re-optimizes mid-session and can leave the preview with two React copies (blank screen, "reading 'use'").
