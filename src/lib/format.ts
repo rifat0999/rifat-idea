@@ -3,7 +3,7 @@ export type Lang = "en" | "bn";
 const BN_DIGITS = "০১২৩৪৫৬৭৮৯";
 
 export function toBnDigits(value: string): string {
-  return value.replace(/\d/g, (d) => BN_DIGITS[Number(d)]);
+  return value.replace(/\d/g, (d) => BN_DIGITS[Number(d)] ?? d);
 }
 
 export function localizeDigits(value: string | number, lang: Lang): string {
