@@ -57,7 +57,7 @@ export function RatingStars({ value, count, className }: { value: number; count?
       <Star className="size-4 fill-star text-star" aria-hidden="true" />
       <span className="font-semibold text-foreground">{value > 0 ? Number(value).toFixed(1) : "—"}</span>
       {count !== undefined && (
-        <span className="text-muted-foreground">({lang === "bn" ? String(count).replace(/\d/g, (d) => "০১২৩৪৫৬৭৮৯"[+d]) : count})</span>
+        <span className="text-muted-foreground">({lang === "bn" ? String(count).replace(/\d/g, (d) => "০১২৩৪৫৬৭৮৯"[+d] ?? d) : count})</span>
       )}
     </span>
   );
