@@ -34,7 +34,7 @@ export const Route = createFileRoute("/influencers/")({
     ],
   }),
   component: Directory,
-  errorComponent: ({ error }) => <div role="alert" className="page-container py-16 text-destructive">{error.message}</div>,
+  errorComponent: ({ error }) => <div role="alert" className="page-container py-16 text-destructive">{error instanceof Error ? error.message : String(error)}</div>,
 });
 
 function Directory() {
@@ -142,7 +142,7 @@ function Directory() {
 function FilterSelect({
   label, value, onChange, options, anyLabel,
 }: {
-  label: string; value?: string; onChange: (v: string | undefined) => void;
+  label: string; value?: string | undefined; onChange: (v: string | undefined) => void;
   options: { value: string; label: string }[]; anyLabel: string;
 }) {
   return (

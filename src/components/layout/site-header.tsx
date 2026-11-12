@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { LayoutDashboard, LogOut, Menu, Shield } from "lucide-react";
+import { LayoutDashboard, LogOut, Menu } from "lucide-react";
 import { useState } from "react";
 import { Logo } from "@/components/brand/logo";
 import { Button } from "@/components/ui/button";
@@ -10,7 +10,7 @@ import { LanguageToggle } from "./language-toggle";
 
 export function SiteHeader() {
   const { t } = useI18n();
-  const { user, isAdmin, signOut, ready } = useAuth();
+  const { user, signOut, ready } = useAuth();
   const [open, setOpen] = useState(false);
 
   const links = [
@@ -47,11 +47,6 @@ export function SiteHeader() {
           <div className="hidden items-center gap-2 md:flex">
             {ready && user ? (
               <>
-                {isAdmin && (
-                  <Button variant="ghost" size="sm" asChild>
-                    <Link to="/admin"><Shield /> {t("app.admin")}</Link>
-                  </Button>
-                )}
                 <Button variant="soft" size="sm" asChild>
                   <Link to="/dashboard"><LayoutDashboard /> {t("nav.dashboard")}</Link>
                 </Button>
@@ -95,11 +90,6 @@ export function SiteHeader() {
                     <Link to="/dashboard" className="rounded-lg px-3 py-2.5 text-sm font-semibold text-primary hover:bg-accent">
                       {t("nav.dashboard")}
                     </Link>
-                    {isAdmin && (
-                      <Link to="/admin" className="rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-accent">
-                        {t("app.admin")}
-                      </Link>
-                    )}
                     <button type="button" onClick={signOut} className="rounded-lg px-3 py-2.5 text-left text-sm font-medium text-muted-foreground hover:bg-accent">
                       {t("nav.signout")}
                     </button>
