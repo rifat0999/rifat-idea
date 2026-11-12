@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as InfluencersIndexRouteImport } from './routes/influencers.index'
 import { Route as InfluencersSlugRouteImport } from './routes/influencers.$slug'
 
 const IndexRoute = IndexRouteImport.update({
@@ -23,6 +24,11 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InfluencersIndexRoute = InfluencersIndexRouteImport.update({
+  id: '/influencers/',
+  path: '/influencers/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const InfluencersSlugRoute = InfluencersSlugRouteImport.update({
   id: '/influencers/$slug',
   path: '/influencers/$slug',
@@ -33,30 +39,34 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/influencers/$slug': typeof InfluencersSlugRoute
+  '/influencers/': typeof InfluencersIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/influencers/$slug': typeof InfluencersSlugRoute
+  '/influencers': typeof InfluencersIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/influencers/$slug': typeof InfluencersSlugRoute
+  '/influencers/': typeof InfluencersIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/influencers/$slug'
+  fullPaths: '/' | '/auth' | '/influencers/$slug' | '/influencers/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/influencers/$slug'
-  id: '__root__' | '/' | '/auth' | '/influencers/$slug'
+  to: '/' | '/auth' | '/influencers/$slug' | '/influencers'
+  id: '__root__' | '/' | '/auth' | '/influencers/$slug' | '/influencers/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
   InfluencersSlugRoute: typeof InfluencersSlugRoute
+  InfluencersIndexRoute: typeof InfluencersIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -75,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/influencers/': {
+      id: '/influencers/'
+      path: '/influencers'
+      fullPath: '/influencers/'
+      preLoaderRoute: typeof InfluencersIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/influencers/$slug': {
       id: '/influencers/$slug'
       path: '/influencers/$slug'
@@ -89,6 +106,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
   InfluencersSlugRoute: InfluencersSlugRoute,
+  InfluencersIndexRoute: InfluencersIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
