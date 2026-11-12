@@ -15,4 +15,11 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  vite: {
+    // Pre-bundle libraries that are otherwise discovered mid-session; a late discovery
+    // re-optimizes deps and can leave the open tab with two React copies (null `use` error).
+    optimizeDeps: {
+      include: ["zod", "@supabase/supabase-js", "@lovable.dev/cloud-auth-js", "sonner", "recharts"],
+    },
+  },
 });
