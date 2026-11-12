@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-type AuthSearch = { mode?: "signin" | "signup" | "forgot"; role?: SignupRole; redirect?: string };
+type AuthSearch = { mode?: "signin" | "signup" | "forgot" | undefined; role?: SignupRole | undefined; redirect?: string | undefined };
 
 function safeRedirect(r?: string | null): string {
   return r && r.startsWith("/") && !r.startsWith("//") ? r : "/dashboard";
@@ -22,9 +22,9 @@ function safeRedirect(r?: string | null): string {
 
 export const Route = createFileRoute("/auth")({
   validateSearch: (s: Record<string, unknown>): AuthSearch => ({
-    mode: s.mode === "signup" || s.mode === "forgot" ? s.mode : s.mode === "signin" ? "signin" : undefined,
-    role: s.role === "creator" || s.role === "business" ? s.role : undefined,
-    redirect: typeof s.redirect === "string" ? s.redirect : undefined,
+    mode: s["mode"] === "signup" || s["mode"] === "forgot" || s["mode"] === "signin" ? s["mode"] : undefined,
+    role: s["role"] === "creator" || s["role"] === "business" ? s["role"] : undefined,
+    redirect: typeof s["redirect"] === "string" ? s["redirect"] : undefined,
   }),
   head: () => ({
     meta: [

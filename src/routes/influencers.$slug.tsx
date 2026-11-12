@@ -44,7 +44,7 @@ export const Route = createFileRoute("/influencers/$slug")({
   },
   component: CreatorPage,
   notFoundComponent: NotFound,
-  errorComponent: ({ error }) => <div role="alert" className="page-container py-16 text-destructive">{error.message}</div>,
+  errorComponent: ({ error }) => <div role="alert" className="page-container py-16 text-destructive">{error instanceof Error ? error.message : String(error)}</div>,
 });
 
 function NotFound() {
@@ -269,7 +269,7 @@ function BookButton({ slug, packageId, creatorUserId, className, size }: { slug:
   }
   return (
     <Button variant="hero" size={size} className={className} asChild>
-      <Link to="/book/$slug" params={{ slug }} search={{ package: packageId }}>{t("profile.book")}</Link>
+      <Link to="/dashboard">{t("profile.book")}</Link>
     </Button>
   );
 }
@@ -288,23 +288,6 @@ function MessageButton({ creatorId, creatorUserId }: { creatorId: string; creato
     );
   }
   if (!isBusiness) return null;
-  return (
-    <Button
-      variant="outline"
-      disabled={busy}
-      onClick={async () => {
-        setBusy(true);
-        try {
-          const id = await openConversation(user.id, creatorId);
-          navigate({ to: "/messages", search: { c: id } });
-        } catch (e) {
-          toast.error(e instanceof Error ? e.message : t("common.error"));
-        } finally {
-          setBusy(false);
-        }
-      }}
-    >
-      <MessageCircle /> {t("profile.message")}
-    </Button>
-  );
+  void creatorId; void navigate; void busy; void setBusy; void openConversation; void toast;
+  return null;
 }
