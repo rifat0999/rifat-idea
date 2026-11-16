@@ -25,7 +25,9 @@ async function creatorProfileId(userId: string) {
     "select id from public.creator_profiles where user_id = $1",
     [userId],
   );
-  return rows[0].id;
+  const row = rows[0];
+  if (!row) throw new Error(`No creator profile for ${userId}`);
+  return row.id;
 }
 
 beforeAll(async () => {

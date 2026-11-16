@@ -81,7 +81,8 @@ export async function createUser(
     "insert into auth.users (email, raw_user_meta_data) values ($1, $2) returning id",
     [`${name.toLowerCase().replace(/\W+/g, ".")}@test.local`, JSON.stringify(meta)],
   );
-  const id = rows[0].id;
+  const id = rows[0]?.id;
+  if (!id) throw new Error(`Could not create test user ${name}`);
   if (role === "admin") {
     await db.query("insert into public.user_roles (user_id, role) values ($1, 'admin')", [id]);
   }
