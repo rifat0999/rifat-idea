@@ -31,3 +31,4 @@ use the editor.
 
 ## Project rules
 - Add newly installed client libraries to `optimizeDeps.include` in `vite.config.ts`: late dependency discovery re-optimizes mid-session and can leave the preview with two React copies (blank screen, "reading 'use'").
+- Database access rules are tested offline in `src/test/db/` with PGlite: `test-database.ts` stubs the hosted auth roles and applies every migration from the journal, so tests exercise the real policies without touching the live database.
