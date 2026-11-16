@@ -34,7 +34,9 @@ const HOSTED_BACKEND_STUB = `
 export async function createTestDatabase() {
   const db = new PGlite();
   await db.exec(HOSTED_BACKEND_STUB);
-  const journal = JSON.parse(readFileSync(path.join(MIGRATIONS_DIR, "meta/_journal.json"), "utf8")) as {
+  const journal = JSON.parse(
+    readFileSync(path.join(MIGRATIONS_DIR, "meta/_journal.json"), "utf8"),
+  ) as {
     entries: { tag: string }[];
   };
   for (const { tag } of journal.entries) {
@@ -47,7 +49,11 @@ export async function createTestDatabase() {
 export type Viewer = string | null;
 
 /** Run one query as a signed-out visitor or a signed-in user, then roll everything back. */
-export async function queryAs<T = Record<string, unknown>>(db: PGlite, viewer: Viewer, sql: string) {
+export async function queryAs<T = Record<string, unknown>>(
+  db: PGlite,
+  viewer: Viewer,
+  sql: string,
+) {
   await db.exec("begin");
   try {
     if (viewer) {
@@ -65,7 +71,11 @@ export async function queryAs<T = Record<string, unknown>>(db: PGlite, viewer: V
 }
 
 /** Create an account the way sign-up does; role metadata triggers the normal account setup. */
-export async function createUser(db: PGlite, name: string, role?: "business" | "creator" | "admin") {
+export async function createUser(
+  db: PGlite,
+  name: string,
+  role?: "business" | "creator" | "admin",
+) {
   const meta = role && role !== "admin" ? { role, full_name: name } : { full_name: name };
   const { rows } = await db.query<{ id: string }>(
     "insert into auth.users (email, raw_user_meta_data) values ($1, $2) returning id",
