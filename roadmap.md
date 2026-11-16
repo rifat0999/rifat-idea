@@ -11,5 +11,6 @@
 - [ ] Creator earnings
 - [ ] Admin dashboard (verification, bookings, payments, payouts, disputes, users, commission)
 - [ ] About, Help, Terms, Privacy
+- [x] Access-rule tests (socials, platform settings, brand profiles)
 - [ ] Commission test
 - [ ] Open: grant admin role once the owner signs up (needs the owner's account)
