@@ -9,7 +9,9 @@
 - [ ] Bookings list + detail (accept/decline, payment submit, delivery, review, dispute)
 - [ ] Messaging (realtime)
 - [ ] Creator earnings
-- [ ] Admin dashboard (verification, bookings, payments, payouts, disputes, users, commission)
+- [ ] Admin dashboard: role gate, overview + commission, users (admin access, publish/feature creators), verification requests, campaigns, bookings (+ payment checks)
+- [ ] Admin access-rule tests
+- [ ] Admin: disputes and payouts screens
 - [ ] About, Help, Terms, Privacy
 - [x] Access-rule tests (socials, platform settings, brand profiles)
 - [ ] Commission test
