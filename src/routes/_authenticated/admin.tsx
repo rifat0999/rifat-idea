@@ -51,8 +51,7 @@ function AdminLayout() {
             key={tab.to}
             to={tab.to}
             activeOptions={{ exact: tab.exact }}
-            className="-mb-px inline-flex shrink-0 items-center gap-2 border-b-2 border-transparent px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            activeProps={{ className: "border-primary text-primary" }}
+            className="-mb-px inline-flex shrink-0 items-center gap-2 border-b-2 border-transparent px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground data-[status=active]:border-primary data-[status=active]:text-primary"
           >
             <tab.icon className="size-4" />
             {tab.label}
