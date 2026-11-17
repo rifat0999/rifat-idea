@@ -5,6 +5,7 @@ export type BookingStatus = Database["public"]["Enums"]["booking_status"];
 export type PaymentStatus = Database["public"]["Enums"]["payment_status"];
 export type VerificationStatus = Database["public"]["Enums"]["verification_status"];
 export type AppRole = Database["public"]["Enums"]["app_role"];
+export type CampaignStatus = Database["public"]["Enums"]["campaign_status"];
 
 type Bi = { en: string; bn: string };
 
@@ -87,6 +88,20 @@ export const VERIFICATION: Record<VerificationStatus, { label: Bi; tone: "muted"
   pending: { label: { en: "Verification pending", bn: "যাচাই অপেক্ষমাণ" }, tone: "warning" },
   verified: { label: { en: "Verified", bn: "যাচাইকৃত" }, tone: "success" },
   rejected: { label: { en: "Verification rejected", bn: "যাচাই বাতিল" }, tone: "destructive" },
+};
+
+export const CAMPAIGN_STATUS: Record<CampaignStatus, { label: Bi; tone: "muted" | "soft" | "success" | "destructive" }> = {
+  draft: { label: { en: "Draft", bn: "খসড়া" }, tone: "muted" },
+  active: { label: { en: "Active", bn: "চলমান" }, tone: "soft" },
+  completed: { label: { en: "Completed", bn: "সম্পন্ন" }, tone: "success" },
+  cancelled: { label: { en: "Cancelled", bn: "বাতিল" }, tone: "destructive" },
+};
+
+export type RequestStatus = "pending" | "approved" | "rejected";
+export const REQUEST_STATUS: Record<RequestStatus, { label: Bi; tone: "warning" | "success" | "destructive" }> = {
+  pending: { label: { en: "Waiting for review", bn: "পর্যালোচনার অপেক্ষায়" }, tone: "warning" },
+  approved: { label: { en: "Approved", bn: "অনুমোদিত" }, tone: "success" },
+  rejected: { label: { en: "Rejected", bn: "বাতিল" }, tone: "destructive" },
 };
 
 export const PAYMENT_METHODS: { value: "bkash" | "nagad" | "rocket" | "bank_transfer"; label: Bi }[] = [
