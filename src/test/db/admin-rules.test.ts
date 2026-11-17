@@ -12,6 +12,20 @@ let campaign = "";
 let booking = "";
 let request = "";
 
+/** Run several statements as one signed-in user, then roll everything back. */
+async function asUser<T>(viewer: string, steps: () => Promise<T>) {
+  await db.exec("begin");
+  try {
+    await db.query("select set_config('request.jwt.claims', $1, true)", [
+      JSON.stringify({ sub: viewer, role: "authenticated" }),
+    ]);
+    await db.exec("set local role authenticated");
+    return await steps();
+  } finally {
+    await db.exec("rollback");
+  }
+}
+
 beforeAll(async () => {
   db = await createTestDatabase();
   u.admin = await createUser(db, "Admin", "admin");
@@ -61,15 +75,13 @@ describe("User list", () => {
 });
 
 describe("Admin access", () => {
-  const isAdmin = (rows: { admin: boolean }[]) => rows[0]?.admin;
-
   it("an admin can make another account an admin", async () => {
-    const rows = await queryAs<{ admin: boolean }>(
-      db,
-      u.admin,
-      `select public.admin_set_admin('${u.brand}', true), public.has_role('${u.brand}', 'admin') as admin`,
-    );
-    expect(isAdmin(rows)).toBe(true);
+    const admin = await asUser(u.admin, async () => {
+      await db.query("select public.admin_set_admin($1, true)", [u.brand]);
+      const { rows } = await db.query<{ admin: boolean }>("select public.has_role($1, 'admin') as admin", [u.brand]);
+      return rows[0]?.admin;
+    });
+    expect(admin).toBe(true);
   });
 
   it("a non-admin cannot give anyone admin access", async () => {
@@ -104,21 +116,15 @@ describe("Campaigns", () => {
 
 describe("Verification requests", () => {
   it("an admin approving a request verifies the creator's profile", async () => {
-    await db.exec("begin");
-    try {
-      await db.query("select set_config('request.jwt.claims', $1, true)", [
-        JSON.stringify({ sub: u.admin, role: "authenticated" }),
-      ]);
-      await db.exec("set local role authenticated");
+    const status = await asUser(u.admin, async () => {
       await db.query("update public.verification_requests set status = 'approved' where id = $1", [request]);
       const { rows } = await db.query<{ verification_status: string }>(
         "select verification_status from public.creator_profiles where id = $1",
         [creatorProfile],
       );
-      expect(rows).toEqual([{ verification_status: "verified" }]);
-    } finally {
-      await db.exec("rollback");
-    }
+      return rows[0]?.verification_status;
+    });
+    expect(status).toBe("verified");
   });
 
   it("the creator cannot approve their own request", async () => {
