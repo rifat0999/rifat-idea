@@ -158,7 +158,7 @@ function AdminUsers() {
                       <div className="flex min-w-52 items-center gap-3">
                         <CreatorAvatar
                           name={u.name}
-                          src={u.creator?.avatar_url ?? u.business?.logo_url}
+                          src={u.creator?.avatar_url ?? u.business?.logo_url ?? null}
                           className="size-9"
                         />
                         <div className="min-w-0">
