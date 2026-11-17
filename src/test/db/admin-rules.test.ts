@@ -104,16 +104,21 @@ describe("Campaigns", () => {
 
 describe("Verification requests", () => {
   it("an admin approving a request verifies the creator's profile", async () => {
-    const rows = await queryAs<{ verification_status: string }>(
-      db,
-      u.admin,
-      `with done as (update public.verification_requests set status = 'approved' where id = '${request}' returning user_id)
-       select public.creator_profiles_status_after() as verification_status`.replace(
-        "select public.creator_profiles_status_after() as verification_status",
-        "select (select count(*) from done)::int as n",
-      ),
-    );
-    expect(rows).toEqual([{ n: 1 }]);
+    await db.exec("begin");
+    try {
+      await db.query("select set_config('request.jwt.claims', $1, true)", [
+        JSON.stringify({ sub: u.admin, role: "authenticated" }),
+      ]);
+      await db.exec("set local role authenticated");
+      await db.query("update public.verification_requests set status = 'approved' where id = $1", [request]);
+      const { rows } = await db.query<{ verification_status: string }>(
+        "select verification_status from public.creator_profiles where id = $1",
+        [creatorProfile],
+      );
+      expect(rows).toEqual([{ verification_status: "verified" }]);
+    } finally {
+      await db.exec("rollback");
+    }
   });
 
   it("the creator cannot approve their own request", async () => {
