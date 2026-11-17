@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { BadgeCheck, CalendarClock, Coins, Megaphone, Receipt, Users, Wallet } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -57,9 +57,9 @@ function AdminOverview() {
 
   const queue = d
     ? [
-        { count: d.pendingVerif, label: t("adm.pendingVerif"), to: "/admin/verification" as const },
-        { count: d.paymentsToCheck, label: t("adm.pendingPay"), to: "/admin/bookings" as const },
-        { count: d.pendingBookings, label: t("adm.pendingBookings"), to: "/admin/bookings" as const },
+        { count: d.pendingVerif, label: t("adm.pendingVerif") },
+        { count: d.paymentsToCheck, label: t("adm.pendingPay") },
+        { count: d.pendingBookings, label: t("adm.pendingBookings") },
       ].filter((q) => q.count > 0)
     : [];
 
@@ -92,9 +92,6 @@ function AdminOverview() {
                     </span>
                     {q.label}
                   </span>
-                  <Button variant="soft" size="sm" asChild>
-                    <Link to={q.to}>{t("adm.viewQueue")}</Link>
-                  </Button>
                 </li>
               ))}
             </ul>
