@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import {
   adminKeys,
+  adminHead,
   errorText,
   FilterSelect,
   ListSkeleton,
@@ -39,7 +40,7 @@ import { formatDate } from "@/lib/format";
 import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/_authenticated/admin/users")({
-  head: () => ({ meta: [{ title: "Users | BrandLinks admin" }, { name: "robots", content: "noindex" }] }),
+  head: () => adminHead("Users", "Manage BrandLinks user access, creator publishing and featured profiles."),
   component: AdminUsers,
 });
 
@@ -188,7 +189,7 @@ function AdminUsers() {
                           checked={u.creator.is_published}
                           aria-label={`${t("adm.published")}: ${u.name}`}
                           onCheckedChange={(v) =>
-                            updateCreator.mutate({ id: u.creator!.id, patch: { is_published: v } })
+                            u.creator && updateCreator.mutate({ id: u.creator.id, patch: { is_published: v } })
                           }
                         />
                       ) : (
@@ -201,7 +202,7 @@ function AdminUsers() {
                           checked={u.creator.is_featured}
                           aria-label={`${t("adm.featured")}: ${u.name}`}
                           onCheckedChange={(v) =>
-                            updateCreator.mutate({ id: u.creator!.id, patch: { is_featured: v } })
+                            u.creator && updateCreator.mutate({ id: u.creator.id, patch: { is_featured: v } })
                           }
                         />
                       ) : (

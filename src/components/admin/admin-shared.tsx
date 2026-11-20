@@ -5,6 +5,26 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import type { VerificationStatus } from "@/lib/constants";
 
+export function adminHead(title: string, description: string) {
+  return { meta: [
+    { title: `${title} | BrandLinks admin` },
+    { name: "description", content: description },
+    { property: "og:title", content: `${title} | BrandLinks admin` },
+    { property: "og:description", content: description },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary" },
+    { name: "robots", content: "noindex" },
+  ] };
+}
+
+export function safeExternalUrl(value: string | null): string | undefined {
+  if (!value) return undefined;
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:" || url.protocol === "http:" ? url.href : undefined;
+  } catch { return undefined; }
+}
+
 export type CreatorLite = {
   id: string;
   user_id: string;

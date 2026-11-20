@@ -1,10 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { BadgeCheck, CalendarClock, Coins, Megaphone, Receipt, Users, Wallet } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { adminKeys, errorText } from "@/components/admin/admin-shared";
+import { adminHead, adminKeys, errorText } from "@/components/admin/admin-shared";
 import { StatCard } from "@/components/brand/bits";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,7 +15,7 @@ import { formatBDT, localizeDigits } from "@/lib/format";
 import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/_authenticated/admin/")({
-  head: () => ({ meta: [{ title: "Admin overview | BrandLinks" }, { name: "robots", content: "noindex" }] }),
+  head: () => adminHead("Overview", "Review BrandLinks users, pending requests, payments and platform settings."),
   component: AdminOverview,
 });
 
@@ -57,9 +57,9 @@ function AdminOverview() {
 
   const queue = d
     ? [
-        { count: d.pendingVerif, label: t("adm.pendingVerif") },
-        { count: d.paymentsToCheck, label: t("adm.pendingPay") },
-        { count: d.pendingBookings, label: t("adm.pendingBookings") },
+        { count: d.pendingVerif, label: t("adm.pendingVerif"), to: "/admin/verification" as const },
+        { count: d.paymentsToCheck, label: t("adm.pendingPay"), to: "/admin/bookings" as const },
+        { count: d.pendingBookings, label: t("adm.pendingBookings"), to: "/admin/bookings" as const },
       ].filter((q) => q.count > 0)
     : [];
 
@@ -92,6 +92,7 @@ function AdminOverview() {
                     </span>
                     {q.label}
                   </span>
+                  <Button variant="ghost" size="sm" asChild><Link to={q.to}>{t("adm.viewQueue")}</Link></Button>
                 </li>
               ))}
             </ul>

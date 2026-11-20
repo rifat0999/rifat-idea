@@ -1,5 +1,5 @@
 import { createFileRoute, Link, Outlet, redirect } from "@tanstack/react-router";
-import { LayoutGrid, ShieldCheck, Users } from "lucide-react";
+import { BadgeCheck, LayoutGrid, Megaphone, Receipt, ShieldCheck, Users } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useI18n } from "@/lib/i18n";
 
@@ -27,6 +27,9 @@ function AdminLayout() {
   const tabs = [
     { to: "/admin" as const, label: t("adm.overview"), icon: LayoutGrid, exact: true },
     { to: "/admin/users" as const, label: t("adm.allUsers"), icon: Users, exact: false },
+    { to: "/admin/verification" as const, label: t("adm.verification"), icon: BadgeCheck, exact: false },
+    { to: "/admin/campaigns" as const, label: t("adm.campaigns"), icon: Megaphone, exact: false },
+    { to: "/admin/bookings" as const, label: t("adm.bookings"), icon: Receipt, exact: false },
   ];
   return (
     <main className="page-container py-8 sm:py-10">

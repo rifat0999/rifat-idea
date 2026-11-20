@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { LayoutDashboard, LogOut, Menu } from "lucide-react";
+import { LayoutDashboard, LogOut, Menu, ShieldCheck } from "lucide-react";
 import { useState } from "react";
 import { Logo } from "@/components/brand/logo";
 import { Button } from "@/components/ui/button";
@@ -10,7 +10,7 @@ import { LanguageToggle } from "./language-toggle";
 
 export function SiteHeader() {
   const { t } = useI18n();
-  const { user, signOut, ready } = useAuth();
+  const { user, signOut, ready, isAdmin } = useAuth();
   const [open, setOpen] = useState(false);
 
   const links = [
@@ -47,6 +47,7 @@ export function SiteHeader() {
           <div className="hidden items-center gap-2 md:flex">
             {ready && user ? (
               <>
+                {isAdmin && <Button variant="ghost" size="sm" asChild><Link to="/admin"><ShieldCheck />{t("adm.role.admin")}</Link></Button>}
                 <Button variant="soft" size="sm" asChild>
                   <Link to="/dashboard"><LayoutDashboard /> {t("nav.dashboard")}</Link>
                 </Button>
@@ -87,12 +88,13 @@ export function SiteHeader() {
                 <div className="my-3 h-px bg-border" />
                 {user ? (
                   <>
+                    {isAdmin && <Button variant="ghost" asChild><Link to="/admin"><ShieldCheck />{t("adm.role.admin")}</Link></Button>}
                     <Link to="/dashboard" className="rounded-lg px-3 py-2.5 text-sm font-semibold text-primary hover:bg-accent">
                       {t("nav.dashboard")}
                     </Link>
-                    <button type="button" onClick={signOut} className="rounded-lg px-3 py-2.5 text-left text-sm font-medium text-muted-foreground hover:bg-accent">
+                    <Button variant="ghost" onClick={signOut} className="justify-start">
                       {t("nav.signout")}
-                    </button>
+                    </Button>
                   </>
                 ) : (
                   <div className="flex flex-col gap-2">
