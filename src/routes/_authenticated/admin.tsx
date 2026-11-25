@@ -1,5 +1,5 @@
 import { createFileRoute, Link, Outlet, redirect } from "@tanstack/react-router";
-import { BadgeCheck, LayoutGrid, Megaphone, Receipt, ShieldCheck, Users } from "lucide-react";
+import { BadgeCheck, History, LayoutGrid, Megaphone, Receipt, ShieldCheck, Users } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useI18n } from "@/lib/i18n";
 
@@ -30,6 +30,7 @@ function AdminLayout() {
     { to: "/admin/verification" as const, label: t("adm.verification"), icon: BadgeCheck, exact: false },
     { to: "/admin/campaigns" as const, label: t("adm.campaigns"), icon: Megaphone, exact: false },
     { to: "/admin/bookings" as const, label: t("adm.bookings"), icon: Receipt, exact: false },
+    { to: "/admin/audit" as const, label: t("adm.audit"), icon: History, exact: false },
   ];
   return (
     <main className="page-container py-8 sm:py-10">

@@ -14,6 +14,53 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_audit_logs: {
+        Row: {
+          actor_id: string | null
+          category: string
+          created_at: string
+          entity_id: string
+          entity_label: string
+          entity_type: string
+          id: string
+          new_status: string
+          old_status: string | null
+          status_field: string
+        }
+        Insert: {
+          actor_id?: string | null
+          category: string
+          created_at?: string
+          entity_id: string
+          entity_label: string
+          entity_type: string
+          id?: string
+          new_status: string
+          old_status?: string | null
+          status_field: string
+        }
+        Update: {
+          actor_id?: string | null
+          category?: string
+          created_at?: string
+          entity_id?: string
+          entity_label?: string
+          entity_type?: string
+          id?: string
+          new_status?: string
+          old_status?: string | null
+          status_field?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "admin_audit_logs_actor_id_fkey"
+            columns: ["actor_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       bookings: {
         Row: {
           accepted_at: string | null

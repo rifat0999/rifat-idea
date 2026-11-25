@@ -51,6 +51,7 @@ export const adminKeys = {
   bookings: ["admin", "bookings"] as const,
   payments: (bookingId: string) => ["admin", "payments", bookingId] as const,
   overview: ["admin", "overview"] as const,
+  audit: ["admin", "audit"] as const,
   settings: ["admin", "settings"] as const,
 };
 

@@ -36,6 +36,13 @@
       "when": 1795615841316,
       "tag": "0004_restrict_review_visibility",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1795615990551,
+      "tag": "0005_add_admin_status_audit_log",
+      "breakpoints": true
     }
   ]
 }

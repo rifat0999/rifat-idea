@@ -11,6 +11,7 @@
 - [ ] Creator earnings
 - [x] Admin dashboard: role gate, overview + commission, users (admin access, publish/feature creators), verification requests, campaigns, bookings (+ payment checks)
 - [x] Admin access-rule tests
+- [ ] Admin audit log: automatic verification, booking and payment status history
 - [ ] Admin: disputes and payouts screens
 - [ ] About, Help, Terms, Privacy
 - [x] Access-rule tests (socials, platform settings, brand profiles)
