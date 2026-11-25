@@ -15,4 +15,4 @@
 - [ ] About, Help, Terms, Privacy
 - [x] Access-rule tests (socials, platform settings, brand profiles)
 - [ ] Commission test
-- [ ] Open: grant admin role once the owner signs up (needs the owner's account)
+- [x] Owner admin access granted
