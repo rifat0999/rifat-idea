@@ -1,4 +1,5 @@
 # BrandLinks roadmap
+- [ ] Private status-change notifications: automatic delivery, unread bell, history and access tests
 - [ ] App shell: header (language switch, auth menu), footer, providers
 - [ ] Homepage (hero, search, featured, how it works)
 - [ ] Influencer directory with filters

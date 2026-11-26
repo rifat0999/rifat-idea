@@ -487,6 +487,50 @@ export type Database = {
           },
         ]
       }
+      notifications: {
+        Row: {
+          category: string
+          created_at: string
+          entity_id: string
+          entity_label: string
+          id: string
+          new_status: string
+          old_status: string
+          read_at: string | null
+          user_id: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          entity_id: string
+          entity_label: string
+          id?: string
+          new_status: string
+          old_status: string
+          read_at?: string | null
+          user_id: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          entity_id?: string
+          entity_label?: string
+          id?: string
+          new_status?: string
+          old_status?: string
+          read_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notifications_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       packages: {
         Row: {
           created_at: string

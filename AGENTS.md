@@ -30,6 +30,7 @@ use the editor.
 <!-- LOVABLE:END -->
 
 ## Project rules
+- Status notifications are generated from profile verification and booking status/payment changes in database triggers; recipients can only read their own alerts and update read timestamps, avoiding duplicate alerts from synchronized request/payment records.
 - Admin management pages live under the authenticated admin layout and use browser queries protected by database admin policies; navigation gates never replace database authorization.
 - Add newly installed client libraries to `optimizeDeps.include` in `vite.config.ts`: late dependency discovery re-optimizes mid-session and can leave the preview with two React copies (blank screen, "reading 'use'").
 - Database access rules are tested offline in `src/test/db/` with PGlite: `test-database.ts` stubs the hosted auth roles and applies every migration from the journal, so tests exercise the real policies without touching the live database.

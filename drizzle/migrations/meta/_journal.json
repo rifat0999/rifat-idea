@@ -43,6 +43,13 @@
       "when": 1795615990551,
       "tag": "0005_add_admin_status_audit_log",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1795696998457,
+      "tag": "0006_status_change_notifications",
+      "breakpoints": true
     }
   ]
 }

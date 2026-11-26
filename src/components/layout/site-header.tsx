@@ -7,6 +7,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 import { useAuth } from "@/hooks/use-auth";
 import { useI18n } from "@/lib/i18n";
 import { LanguageToggle } from "./language-toggle";
+import { NotificationBell } from "./notification-bell";
 
 export function SiteHeader() {
   const { t } = useI18n();
@@ -43,6 +44,7 @@ export function SiteHeader() {
           </Link>
         </nav>
         <div className="flex items-center gap-2">
+          {ready && user && <NotificationBell />}
           <LanguageToggle />
           <div className="hidden items-center gap-2 md:flex">
             {ready && user ? (
